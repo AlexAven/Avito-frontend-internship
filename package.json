@@ -5,7 +5,9 @@
   "type": "module",
   "author": "Alexander Kazakov",
   "scripts": {
+    "install-all": "npm install && cd src/api && npm install",
     "dev": "vite",
+    "dev-all": "concurrently \"cd src/api && npm start\" \"npx vite\"",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
