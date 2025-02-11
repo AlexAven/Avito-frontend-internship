@@ -1,0 +1,13 @@
+html {
+  font-size: var(--fs-sm);
+}
+
+body {
+  margin: 0;
+  font-family: var(--family); 
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-md);
+  line-height: var(--line-height);
+  color: var(--colors-text-main);
+  background-color: var(--colors-bg);
+}
