@@ -2,7 +2,7 @@
 
 const PORT = 3000;
 
-const API_URL = 'https://localhost';
+const API_URL = ' http://localhost';
 
 export const BASE_URL = `${API_URL}:${PORT}/`;
 

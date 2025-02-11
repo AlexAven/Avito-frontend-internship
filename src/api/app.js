@@ -197,6 +197,8 @@
 
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+
 
 const ItemTypes = {
   REAL_ESTATE: 'Недвижимость',
@@ -207,8 +209,111 @@ const ItemTypes = {
 const app = express();
 app.use(bodyParser.json());
 
+// Используем CORS для запуска проекта и сервера на разных портах
+app.use(cors());
+
 // In-memory хранилище для объявлений
-let items = [{ "1": "LOX"}];
+let items = [
+  {
+    id: 1,
+    name: 'Квартира в центре',
+    description: 'Просторная квартира в центре города',
+    location: 'Москва',
+    type: 'Недвижимость',
+    propertyType: 'Квартира',
+    area: 100,
+    rooms: 3,
+    price: 15000000,
+  },
+  {
+    id: 2,
+    name: 'Toyota Camry',
+    description: 'Надежный автомобиль',
+    location: 'Москва',
+    type: 'Авто',
+    brand: 'Toyota',
+    model: 'Camry',
+    year: 2020,
+    mileage: 15000,
+  },
+  {
+    id: 3,
+    name: 'Ремонт квартир',
+    description: 'Качественный ремонт квартир',
+    location: 'Москва',
+    type: 'Услуги',
+    serviceType: 'Ремонт',
+    experience: 5,
+    cost: 50000,
+    workSchedule: 'Пн-Пт, 9:00-18:00',
+  },
+  {
+    id: 4,
+    name: 'Чистка ковров',
+    description: 'Будет чист ваш трубочист',
+    location: 'Саратов',
+    type: 'Услуги',
+    serviceType: 'Бытовые услуги',
+    experience: 5,
+    cost: 20000,
+    workSchedule: 'Пн-Пт, 8:00-22:00',
+  },
+  {
+    id: 5,
+    name: 'Пошив одежды',
+    description: 'Почти задаром',
+    location: 'Санкт-Петербург',
+    type: 'Услуги',
+    serviceType: 'Бытовые услуги',
+    experience: 5,
+    cost: 50000,
+    workSchedule: 'Пн-Пт, 10:00-15:00',
+  },
+  {
+    id: 6,
+    name: 'LADA Largus',
+    description: 'На дачу за картошкой',
+    location: 'Сочи',
+    type: 'Авто',
+    brand: 'LADA',
+    model: 'Largus',
+    year: 2015,
+    mileage: 50000,
+  },
+  {
+    id: 7,
+    name: 'BMW X7',
+    description: 'Когда понт дорожен денег',
+    location: 'Краснодар',
+    type: 'Авто',
+    brand: 'BMW',
+    model: 'X7',
+    year: 2023,
+    mileage: 5000,
+  },
+  {
+    id: 8,
+    name: 'Квартира с джакузи',
+    description: 'Почьи дворец для богатеев',
+    location: 'Армавир',
+    type: 'Недвижимость',
+    propertyType: 'Квартира',
+    area: 250,
+    rooms: 5,
+    price: 250000000,
+  },
+  {
+    id: 9,
+    name: 'Студия на окраине',
+    description: 'Просторная квартира в центре города',
+    location: 'Красногорск',
+    type: 'Недвижимость',
+    propertyType: 'Квартира',
+    area: 28,
+    rooms: 1,
+    price: 998989999,
+  },
+];
 
 const makeCounter = () => {
   let count = 0;
@@ -296,7 +401,7 @@ app.delete('/items/:id', (req, res) => {
   }
 });
 
-export const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
