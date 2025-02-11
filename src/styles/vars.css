@@ -4,7 +4,7 @@
   --line-height: 18px;
   --fs-sm: 10px;
   --fs-md: 14px;
-  --fs-md-lg: 26px;
+  --fs-md-lg: 18px;
   --fs-lg: 30px;
   --fw-light: 300;
   --fw-regular: 400;
@@ -16,25 +16,31 @@
   /* Текст */
   --colors-text-main: #000000;
   --colors-text-alt: #ffffff;
-  --colors-text-title: #0073f7;
-  --colors-text-desc: #757575;
+  --colors-text-title: #00aaff;
+  --colors-text-desc: #757575d7;
   --colors-text-button: #ffffff;;
   --colors-text-hover: rgb(255, 64, 83);
 
   /* Интерфейс */
   --colors-bg: #ffffff;
   --colors-bg-alt: #2a2a2a;
-  /* --colors-bg-dark: #252525;
-  --colors-ui: #6C63FF;
-  --colors-ui-hover: #544ce4;
-  --colors-ui-border: #6C63FF; */
+  --colors-ui: #1baaff;
+  --colors-ui-hover: #0099f7;
+  --colors-ui-active: #008aed;
+  --colors-ui-border: #5c5a5a12;
+  --colors-filter-unchecked-btn: #f2f1f0;
+  --colors-filter-btn-unchecked-hover: #ebeae8;
+  --colors-filter-btn-checked: #141414;
+  --colors-filter-btn-checked-hover: #292929;
+  /* --colors-ui-border: #6C63FF; */
  
 
-  --shadow: rgba(149, 157, 165, 0.2) 3px 5px 7px;
+  /* --shadow: rgba(149, 157, 165, 0.2) 3px 5px 7px; */
+  --shadow: rgba(149, 157, 165, 0.183) 3px 5px 7px;
   --shadow-alt: rgba(0, 1, 1, 0.561) 5px 5px 7px;
   --shadow-filters: 4px 4px #827f7f;
   --shadow-hover: rgba(149, 157, 165, 0.342) 3px 5px 7px;
 
   /* Другое */
-  --radii: 0.5rem;
+  --radii: 0.8rem;
 }
