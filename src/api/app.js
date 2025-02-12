@@ -249,6 +249,7 @@ let items = [
   },
   {
     id: 4,
+    image: 'https://carpet-gold.ru/images/big/kover_3_na_6_v_interere_3.jpg',
     name: 'Чистка ковров',
     description: 'Будет чист ваш трубочист',
     location: 'Саратов',
