@@ -15,7 +15,7 @@ const useItems = (): UseItemsResult => {
     dispatch(loadItems());
   }, [dispatch]);
 
-  // return [countries, status, error];
+  // return [items, status, error];
   return [items];
 };
 

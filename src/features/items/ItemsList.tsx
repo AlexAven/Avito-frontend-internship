@@ -12,7 +12,6 @@ const ItemsList = () => {
 
   // const [items, status, error] = useItems();
   const [items] = useItems();
-  console.log(items);
 
   return (
     <>
