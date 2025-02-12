@@ -70,19 +70,17 @@ const BtnContainer = styled.div`
 `;
 
 interface CardProps {
-  img?: string;
   onClick?: () => void;
   item: Item;
 }
 
-const defaultImage = './src/assets/images/no-photo.png';
-
-const Card: React.FC<CardProps> = ({ img = defaultImage, item, onClick }) => {
-  const { name, location, type } = item;
+const Card: React.FC<CardProps> = ({ item, onClick }) => {
+  const defaultImage = './src/assets/images/no-photo.png';
+  const { name, location, type, image = defaultImage } = item;
 
   return (
     <Wrapper>
-      <CardImage src={img} alt={name} />
+      <CardImage src={image} alt={name} />
       <CardBody>
         <CardTitle onClick={onClick}>{name}</CardTitle>
         <CardDescription>

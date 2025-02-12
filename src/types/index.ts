@@ -15,12 +15,14 @@ export const ItemTypes = {
 // Типы объявлений как строковые литералы
 export type ItemType = (typeof ItemTypes)[keyof typeof ItemTypes];
 
+// Краткий тип товаров для карточки
 export interface Item {
   id: number;
   name: string;
   description: string;
   location: string;
   type: ItemType;
+  image?: string;
 }
 
 // Интерфейс для типа "Недвижимость"
@@ -58,6 +60,13 @@ export interface ItemState {
   error: string | null;
 }
 
+// Стейт текущего объявления
+export interface CurrentItemState {
+  currentItem: ItemWithDetails | null;
+  status: 'idle' | 'loading' | 'rejected' | 'received';
+  error: string | null;
+}
+
 // Стейт фильтров
 export interface ControlsState {
   search: string;
@@ -71,12 +80,11 @@ export interface ExtraArgument {
 }
 
 // Типизация переключателя категории
-// export type SwitcherType = 'REAL_ESTATE' | 'AUTO' | 'SERVICES' | 'ALL';
-
 export type SwitcherType = 'Недвижимость' | 'Авто' | 'Услуги' | 'Все';
 
 // Типизация стора
 export type Store = {
   items: ItemState;
   controls: ControlsState;
+  details: CurrentItemState;
 };

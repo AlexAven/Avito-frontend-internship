@@ -6,11 +6,13 @@ import * as api from '../api/api';
 
 import { itemsReducer } from '../features/items/itemsSlice';
 import { controlsReducer } from '../features/controls/controlsSlice';
+import { detailsReducer } from '../features/details/detailsSlice';
 
 const store = configureStore({
   reducer: {
     items: itemsReducer,
     controls: controlsReducer,
+    details: detailsReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
