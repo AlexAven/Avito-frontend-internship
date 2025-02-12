@@ -11,6 +11,7 @@ const Wrapper = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   align-items: stretch;
+  position: absolute;
 `;
 
 const Category = () => {
