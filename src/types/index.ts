@@ -17,7 +17,7 @@ export type ItemType = (typeof ItemTypes)[keyof typeof ItemTypes];
 
 // Краткий тип товаров для карточки
 export interface Item {
-  id: number;
+  id?: number;
   name: string;
   description: string;
   location: string;
@@ -38,7 +38,7 @@ export interface AutoSpecific {
   brand: string;
   model: string;
   year: number;
-  mileage?: number;
+  mileage: number;
 }
 
 // Интерфейс для типа "Услуги"
