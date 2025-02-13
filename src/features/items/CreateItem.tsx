@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import styled, { keyframes } from 'styled-components';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import styled, { keyframes } from 'styled-components';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as yup from 'yup';
-import { useNavigate } from 'react-router-dom';
+
+import { ItemTypes, ItemType, ItemWithDetails } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { createItem, updateItem } from '../items/itemsSlice';
-import { ItemTypes, ItemType, ItemWithDetails } from '../../types';
 import { Button } from '../../components/Button';
 
 // Анимация ошибки
@@ -153,39 +154,33 @@ const stepOneSchema = yup.object().shape({
 // Схемы валидации для категорий
 const schemas: Record<ItemType, yup.ObjectSchema<any>> = {
   [ItemTypes.REAL_ESTATE]: yup.object().shape({
-    specific: yup.object().shape({
-      propertyType: yup.string().required('Выберите тип недвижимости'),
-      area: yup.number().positive('Площадь должна быть больше 0').required('Укажите площадь'),
-      rooms: yup.number().required('Укажите количество комнат').min(1, 'Минимум 1 комната'),
-      price: yup.number().positive('Цена должна быть больше 0').required('Укажите цену'),
-    }),
+    propertyType: yup.string().required('Выберите тип недвижимости'),
+    area: yup.number().positive('Площадь должна быть больше 0').required('Укажите площадь'),
+    rooms: yup.number().required('Укажите количество комнат').min(1, 'Минимум 1 комната'),
+    price: yup.number().positive('Цена должна быть больше 0').required('Укажите цену'),
   }),
   [ItemTypes.AUTO]: yup.object().shape({
-    specific: yup.object().shape({
-      brand: yup.string().required('Укажите марку авто'),
-      model: yup.string().required('Укажите модель авто'),
-      year: yup
-        .number()
-        .required('Укажите год выпуска авто')
-        .integer()
-        .min(1800, 'Год выпуска должен быть больше 1800')
-        .max(new Date().getFullYear(), 'Год выпуска не может быть больше текущего'),
-      mileage: yup
-        .number()
-        .required('Укажите пробег авто')
-        .positive('Пробег должен быть положительным'),
-    }),
+    brand: yup.string().required('Укажите марку авто'),
+    model: yup.string().required('Укажите модель авто'),
+    year: yup
+      .number()
+      .required('Укажите год выпуска авто')
+      .integer()
+      .min(1800, 'Год выпуска должен быть больше 1800')
+      .max(new Date().getFullYear(), 'Год выпуска не может быть больше текущего'),
+    mileage: yup
+      .number()
+      .required('Укажите пробег авто')
+      .positive('Пробег должен быть положительным'),
   }),
   [ItemTypes.SERVICES]: yup.object().shape({
-    specific: yup.object().shape({
-      serviceType: yup.string().required('Укадите тип услуги'),
-      experience: yup
-        .number()
-        .min(0, 'Опыт работы не может быть меньше 0')
-        .required('Укажите количество лет опыта'),
-      cost: yup.number().positive('Укажите корректную цену').required('Цена обязательна'),
-      workSchedule: yup.string().notRequired(),
-    }),
+    serviceType: yup.string().required('Укадите тип услуги'),
+    experience: yup
+      .number()
+      .min(0, 'Опыт работы не может быть меньше 0')
+      .required('Укажите количество лет опыта'),
+    cost: yup.number().positive('Укажите корректную цену').required('Цена обязательна'),
+    workSchedule: yup.string().notRequired(),
   }),
 };
 
@@ -193,6 +188,7 @@ const FormPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const currentItem = useAppSelector((state) => state.details.currentItem);
+  const currentTitle = currentItem ? 'Редактирование объявления' : 'Создание объявления';
 
   const [step, setStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -204,39 +200,37 @@ const FormPage: React.FC = () => {
     location: '',
     type: '',
     image: '',
-    specific: {
-      propertyType: '',
-      area: '',
-      rooms: '',
-      price: '',
-      brand: '',
-      model: '',
-      year: '',
-      mileage: '',
-      serviceType: '',
-      experience: '',
-      cost: '',
-      workSchedule: '',
-    },
+    propertyType: '',
+    area: '',
+    rooms: '',
+    price: '',
+    brand: '',
+    model: '',
+    year: '',
+    mileage: '',
+    serviceType: '',
+    experience: '',
+    cost: '',
+    workSchedule: '',
   };
 
-  const getFlatObject = (obj) => {
-    const flattened = {};
+  const getCategorizedObject = (obj) => {
+    const resultObject = {};
 
     for (const [key, value] of Object.entries(obj)) {
-      if (value && typeof value === 'object' && !Array.isArray(value)) {
-        Object.assign(flattened, getFlatObject(value));
-      } else if (value !== '' && value !== null && value !== undefined) {
-        flattened[key] = value;
-      }
+      if (value) resultObject[key] = value;
     }
 
-    return flattened;
+    return resultObject;
   };
 
   useEffect(() => {
     if (currentItem) {
       setSelectedCategory(currentItem.type);
+      console.log('Упал из объявления');
+      setStep(2);
+    } else {
+      console.log('Упал с главной');
     }
   }, [currentItem]);
 
@@ -253,7 +247,7 @@ const FormPage: React.FC = () => {
       if (currentItem) {
         dispatch(updateItem(values));
       } else {
-        const ItemToDispatch: ItemWithDetails = getFlatObject(values);
+        const ItemToDispatch: ItemWithDetails = getCategorizedObject(values);
         dispatch(createItem(ItemToDispatch));
       }
       navigate('/list');
@@ -262,7 +256,7 @@ const FormPage: React.FC = () => {
 
   return (
     <Wrapper>
-      <Title>Создание объявления</Title>
+      <Title>{currentTitle}</Title>
       <Formik
         initialValues={initialValues}
         validationSchema={step === 1 ? stepOneSchema : schemas[selectedCategory]}
@@ -327,30 +321,30 @@ const FormPage: React.FC = () => {
                   <>
                     <InputContainer>
                       <LabelCustom>Тип недвижимости</LabelCustom>
-                      <Field name="specific.propertyType" as={SelectCustom}>
+                      <Field name="propertyType" as={SelectCustom}>
                         <option value=""></option>
                         <option value="квартира">Квартира</option>
                         <option value="дом">Дом</option>
                         <option value="коттедж">Коттедж</option>
                       </Field>
-                      <ErrorMessage name="specific.propertyType" component={ErrorText} />
+                      <ErrorMessage name="propertyType" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>
                         Площадь <span>м²</span>
                       </LabelCustom>
-                      <InputCustom name="specific.area" type="number" />
-                      <ErrorMessage name="specific.area" component={ErrorText} />
+                      <InputCustom name="area" type="number" />
+                      <ErrorMessage name="area" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Количество комнат</LabelCustom>
-                      <InputCustom name="specific.rooms" type="number" />
-                      <ErrorMessage name="specific.rooms" component={ErrorText} />
+                      <InputCustom name="rooms" type="number" />
+                      <ErrorMessage name="rooms" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Цена</LabelCustom>
-                      <InputCustom name="specific.price" type="number" />
-                      <ErrorMessage name="specific.price" component={ErrorText} />
+                      <InputCustom name="price" type="number" />
+                      <ErrorMessage name="price" component={ErrorText} />
                     </InputContainer>
                   </>
                 )}
@@ -358,24 +352,24 @@ const FormPage: React.FC = () => {
                   <>
                     <InputContainer>
                       <LabelCustom>Марка</LabelCustom>
-                      <InputCustom name="specific.brand" />
-                      <ErrorMessage name="specific.brand" component={ErrorText} />
+                      <InputCustom name="brand" />
+                      <ErrorMessage name="brand" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Модель</LabelCustom>
-                      <InputCustom name="specific.model" />
-                      <ErrorMessage name="specific.model" component={ErrorText} />
+                      <InputCustom name="model" />
+                      <ErrorMessage name="model" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Год выпуска</LabelCustom>
-                      <InputCustom name="specific.year" type="number" />
-                      <ErrorMessage name="specific.year" component={ErrorText} />
+                      <InputCustom name="year" type="number" />
+                      <ErrorMessage name="year" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>
                         Пробег <span>км</span>
                       </LabelCustom>
-                      <InputCustom name="specific.mileage" type="number" />
+                      <InputCustom name="mileage" type="number" />
                     </InputContainer>
                   </>
                 )}
@@ -383,29 +377,29 @@ const FormPage: React.FC = () => {
                   <>
                     <InputContainer>
                       <LabelCustom>Тип услуги</LabelCustom>
-                      <Field name="specific.serviceType" as={SelectCustom}>
+                      <Field name="serviceType" as={SelectCustom}>
                         <option value=""></option>
                         <option value="ремонт">Ремонт</option>
                         <option value="уборка">Уборка</option>
                         <option value="доставка">Доставка</option>
                       </Field>
-                      <ErrorMessage name="specific.serviceType" component={ErrorText} />
+                      <ErrorMessage name="serviceType" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Опыт работы</LabelCustom>
-                      <InputCustom name="specific.experience" type="number" />
-                      <ErrorMessage name="specific.experience" component={ErrorText} />
+                      <InputCustom name="experience" type="number" />
+                      <ErrorMessage name="experience" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>Стоимость</LabelCustom>
-                      <InputCustom name="specific.cost" type="number" />
-                      <ErrorMessage name="specific.cost" component={ErrorText} />
+                      <InputCustom name="cost" type="number" />
+                      <ErrorMessage name="cost" component={ErrorText} />
                     </InputContainer>
                     <InputContainer>
                       <LabelCustom>
                         График работы <span>(необязательно)</span>
                       </LabelCustom>
-                      <InputCustom name="specific.workSchedule" />
+                      <InputCustom name="workSchedule" />
                     </InputContainer>
                   </>
                 )}
