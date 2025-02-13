@@ -19,6 +19,21 @@ export const loadItems = createAsyncThunk<any, void, { extra: ExtraArgument }>(
   },
 );
 
+export const createItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
+  '@@items/create-item',
+  (item, { extra: { client, api } }) => {
+    console.log('THUNK', item);
+    client.post(api.ALL_ITEMS, item);
+  },
+);
+
+export const updateItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
+  '@@items/update-item',
+  (item, { extra: { client, api } }) => {
+    client.put(api.loadItemById(item.id!), item);
+  },
+);
+
 const itemSlice = createSlice({
   name: 'items',
   initialState,
@@ -38,7 +53,7 @@ const itemSlice = createSlice({
         state.status = 'received';
         state.error = null;
         state.ids = data.map((item: ItemWithDetails) => item.id);
-        data.forEach((item: ItemWithDetails) => (state.entities[item.id] = item));
+        data.forEach((item: ItemWithDetails) => (state.entities[item.id!] = item));
       });
   },
 });
