@@ -10,7 +10,6 @@ import { useAppDispatch, useAppSelector } from '../../app/store';
 import { createItem, updateItem } from '../items/itemsSlice';
 import { Button } from '../../components/Button';
 
-// Анимация ошибки
 const slideDown = keyframes`
   from {
     opacity: 0;
@@ -22,7 +21,6 @@ const slideDown = keyframes`
   }
 `;
 
-// Стили для компонента ошибки
 const ErrorText = styled.div`
   color: var(--error);
   font-size: var(--fs-md);
@@ -151,7 +149,7 @@ const stepOneSchema = yup.object().shape({
   image: yup.string().url('Укажите валидную ссылку на фото').notRequired(),
 });
 
-// Схемы валидации для категорий
+// Схема валидации для второго шага
 const schemas: Record<ItemType, yup.ObjectSchema<any>> = {
   [ItemTypes.REAL_ESTATE]: yup.object().shape({
     propertyType: yup.string().required('Выберите тип недвижимости'),
@@ -187,13 +185,14 @@ const schemas: Record<ItemType, yup.ObjectSchema<any>> = {
 const FormPage: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const currentItem = useAppSelector((state) => state.details.currentItem);
   const currentTitle = currentItem ? 'Редактирование объявления' : 'Создание объявления';
 
   const [step, setStep] = useState(1);
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Инициализация значений формы
+  // Создание начальной формы для заполнения
   const initialValues = currentItem || {
     name: '',
     description: '',
@@ -214,6 +213,7 @@ const FormPage: React.FC = () => {
     workSchedule: '',
   };
 
+  // Хелпер для создания объекта с заполненными свойствами
   const getCategorizedObject = (obj) => {
     const resultObject = {};
 
