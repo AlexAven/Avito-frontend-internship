@@ -12,6 +12,20 @@ const slideDown = keyframes`
   }
 `;
 
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & > :first-child {
+    width: 25%;
+  }
+
+  & > :last-child {
+    width: 25%;
+  }
+`;
+
 export const ErrorText = styled.div`
   color: var(--error);
   font-size: var(--fs-md);
@@ -38,11 +52,11 @@ export const FormCustom = styled(Form)`
   display: flex;
   flex-direction: column;
 
-  & > :last-child {
+  /* & > :last-child {
     margin-left: auto;
     width: 30%;
     height: 4rem;
-  }
+  } */
 `;
 
 export const Title = styled.h1`
@@ -115,6 +129,7 @@ export const LabelCustom = styled.label`
   font-size: var(--fs-md-lg);
   font-weight: var(--fw-bold);
   padding: 1rem;
+  cursor: default;
 
   & > span {
     font-size: var(--fs-md);

@@ -52,6 +52,7 @@ const useCreate = () => {
     }
   }, [currentItem]);
 
+  // Обработчик действий в зависимости от шага создания объявления
   const handleSubmit = (values: any) => {
     if (step === 1) {
       setStep(2);
@@ -66,12 +67,22 @@ const useCreate = () => {
     }
   };
 
+  // Обработчик кнопки "Назад"
+  const handleReturn = () => {
+    if (currentItem) {
+      navigate(-1);
+    } else {
+      setStep(1);
+    }
+  };
+
   return {
     currentTitle,
     selectedCategory,
     setSelectedCategory,
     initialValues,
     handleSubmit,
+    handleReturn,
     step,
   };
 };

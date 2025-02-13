@@ -34,9 +34,13 @@
   --colors-filter-btn-checked: #141414;
   --colors-filter-btn-checked-hover: #292929;
   --colors-edit-btn: #f2f1f0;
-  --colors-edit-btn-hover: #ebeae8;
+  --colors-edit-btn-hover: #f2f1f0;
   --colors-input: #f2f1f0;
   --colors-input-hover: #ebeae8;
+  --color-page-btn: #f2f1f0;
+  --color-page-btn-hover: #e1dfdc;
+  --color-page-btn-checked: #bdbcba;
+  --color-page-btn-checked-hover: #9b9b98;
   --error: rgb(255, 64, 83);
 
  

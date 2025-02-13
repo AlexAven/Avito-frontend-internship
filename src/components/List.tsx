@@ -10,6 +10,10 @@ const Wrapper = styled.section`
   grid-template-columns: repeat(1, 1fr);
   gap: 2rem;
 
+  & > :last-child {
+    justify-self: center;
+  }
+
   /* @media (min-width: 767px) {
     grid-template-columns: repeat(2, 1fr);
     gap: 3rem;

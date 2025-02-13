@@ -83,10 +83,12 @@ const Info: React.FC<InfoProps> = ({ item }) => {
           <InfoTitle>{item.name}</InfoTitle>
           <InfoImage src={image} alt={item.name} />
         </InfoGroup>
+
         <InfoGroup>
           <InfoSubTitle>Описание</InfoSubTitle>
           <InfoDesription>{item.description}</InfoDesription>
         </InfoGroup>
+
         <InfoGroup>
           <InfoSubTitle>Адрес</InfoSubTitle>
           <InfoDesription>{item.location}</InfoDesription>
@@ -101,17 +103,21 @@ const Info: React.FC<InfoProps> = ({ item }) => {
       return (
         <InfoGroup>
           <InfoSubTitle>
-            <span>Детали недвижимости</span>
+            <span>Детали о недвижимости</span>
           </InfoSubTitle>
+
           <InfoDesription>
             <span>Тип недвижимости:</span> {item.propertyType}
           </InfoDesription>
+
           <InfoDesription>
             <span>Площадь:</span> {item.area} м²
           </InfoDesription>
+
           <InfoDesription>
             <span>Количество комнат:</span> {item.rooms}
           </InfoDesription>
+
           <InfoDesription>
             <span>Цена:</span> {item.price.toLocaleString()} ₽
           </InfoDesription>
@@ -126,16 +132,19 @@ const Info: React.FC<InfoProps> = ({ item }) => {
     if ('brand' in item && 'model' in item && 'year' in item) {
       return (
         <InfoGroup>
-          <InfoSubTitle>Детали автомобиля</InfoSubTitle>
+          <InfoSubTitle>Детали об автомобиле</InfoSubTitle>
           <InfoDesription>
             <span>Бренд:</span> {item.brand}
           </InfoDesription>
+
           <InfoDesription>
             <span>Модель:</span> {item.model}
           </InfoDesription>
+
           <InfoDesription>
             <span>Год выпуска:</span> {item.year}
           </InfoDesription>
+
           {'mileage' in item && (
             <InfoDesription>
               <span>Пробег:</span> {item.mileage?.toLocaleString()} км

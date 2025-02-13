@@ -7,6 +7,7 @@ const useDetails = (id: number) => {
   const dispatch = useAppDispatch();
   const details = useAppSelector(selectDetails);
 
+  // Загрузка выбранного объявления по ID
   useEffect(() => {
     dispatch(loadItemById(id));
   }, [id, dispatch]);

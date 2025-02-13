@@ -15,7 +15,9 @@ export const ItemServices = () => {
         <ErrorMessage name="serviceType" component={ErrorText} />
       </InputContainer>
       <InputContainer>
-        <LabelCustom>Опыт работы</LabelCustom>
+        <LabelCustom>
+          Опыт работы <span>лет</span>
+        </LabelCustom>
         <InputCustom name="experience" type="number" />
         <ErrorMessage name="experience" component={ErrorText} />
       </InputContainer>

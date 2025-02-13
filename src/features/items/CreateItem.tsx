@@ -8,13 +8,20 @@ import { ItemBase } from './ItemBase';
 import { ItemAuto } from './ItemAuto';
 import useCreate from './useCreate';
 import useValidate from './useValidate';
-import { Wrapper, Title, FormCustom } from './styles';
+import { Wrapper, Title, FormCustom, ButtonWrapper } from './styles';
 
 const FormPage: React.FC = () => {
   const { stepOneSchema, stepTwoSchema } = useValidate();
 
-  const { currentTitle, selectedCategory, setSelectedCategory, initialValues, handleSubmit, step } =
-    useCreate();
+  const {
+    currentTitle,
+    selectedCategory,
+    setSelectedCategory,
+    initialValues,
+    handleSubmit,
+    handleReturn,
+    step,
+  } = useCreate();
 
   return (
     <Wrapper>
@@ -40,7 +47,10 @@ const FormPage: React.FC = () => {
                 {selectedCategory === ItemTypes.REAL_ESTATE && <ItemRealEstate />}
                 {selectedCategory === ItemTypes.AUTO && <ItemAuto />}
                 {selectedCategory === ItemTypes.SERVICES && <ItemServices />}
-                <Button type="submit">Опубликовать</Button>
+                <ButtonWrapper>
+                  <Button onClick={handleReturn}>Назад</Button>
+                  <Button type="submit">Опубликовать</Button>
+                </ButtonWrapper>
               </>
             )}
           </FormCustom>

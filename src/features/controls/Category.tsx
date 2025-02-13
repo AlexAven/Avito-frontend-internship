@@ -4,6 +4,7 @@ import { SwitcherType } from '../../types';
 import Switcher from '../../components/Switcher';
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { setCategory, selectCategory } from './controlsSlice';
+import { setCurrentPage } from '../pagination/paginationSlice';
 
 const Wrapper = styled.div`
   max-width: 22rem;
@@ -22,6 +23,7 @@ const Category = () => {
     const type = event.target.value as SwitcherType;
 
     dispatch(setCategory(type));
+    if (type !== category) dispatch(setCurrentPage(1));
   };
 
   return (

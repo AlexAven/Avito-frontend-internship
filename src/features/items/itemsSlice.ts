@@ -5,6 +5,7 @@ import { createSelector } from 'reselect';
 import { ItemState, ExtraArgument, ItemWithDetails, Store } from '../../types';
 import { selectSearch, selectCategory } from '../controls/controlsSlice';
 
+// Начальное состояние
 const initialState: ItemState = {
   entities: {},
   ids: [],
@@ -12,6 +13,7 @@ const initialState: ItemState = {
   error: null,
 };
 
+// Получения списка объявлений с сервера
 export const loadItems = createAsyncThunk<any, void, { extra: ExtraArgument }>(
   '@@items/load-all-items',
   (_, { extra: { client, api } }) => {
@@ -19,18 +21,19 @@ export const loadItems = createAsyncThunk<any, void, { extra: ExtraArgument }>(
   },
 );
 
+// Создание объявления и отправка на сервер
 export const createItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
   '@@items/create-item',
   (item, { extra: { client, api } }) => {
-    console.log('THUNK', item);
     client.post(api.ALL_ITEMS, item);
   },
 );
 
+// Редактирование существующего объявления и отправка на сервер
 export const updateItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
   '@@items/update-item',
   (item, { extra: { client, api } }) => {
-    client.put(api.loadItemById(item.id!), item);
+    client.put(api.itemById(item.id!), item);
   },
 );
 
@@ -60,7 +63,8 @@ const itemSlice = createSlice({
 
 export const itemsReducer = itemSlice.reducer;
 
-// Селекторы объявлений
+// Селекторы:
+// Селектор объявлений для рендера с учетом фильтров и поиска
 export const selectItemsEntities = (state: Store) => state.items.entities;
 
 export const selectFilteredItems = createSelector(
@@ -73,5 +77,18 @@ export const selectFilteredItems = createSelector(
         item.name.toLowerCase().includes(searchLower) &&
         (category === 'Все' || item.type === category),
     );
+  },
+);
+
+// Селектор пагинации
+export const selectPagination = (state: Store) => state.pagination;
+
+// Селектор объявлений для рендера на одной текущей стринице
+export const selectPaginatedProducts = createSelector(
+  [selectFilteredItems, selectPagination],
+  (items, pagination) => {
+    const startIndex = (pagination.currentPage - 1) * pagination.itemsPerPage;
+    const endIndex = startIndex + pagination.itemsPerPage;
+    return items.slice(startIndex, endIndex);
   },
 );

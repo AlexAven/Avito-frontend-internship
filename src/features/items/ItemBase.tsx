@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ErrorMessage, Field } from 'formik';
+
 import { ItemTypes } from '../../types';
 import { Button } from '../../components/Button';
 import {
@@ -9,9 +10,11 @@ import {
   ErrorText,
   SelectCustom,
   TextAreaCustom,
+  ButtonWrapper,
 } from './styles';
 
 import { FormikValues } from 'formik';
+import { useNavigate } from 'react-router-dom';
 
 interface ItemBaseProps {
   values: FormikValues;
@@ -24,11 +27,16 @@ export const ItemBase: React.FC<ItemBaseProps> = ({
   setFieldValue,
   setSelectedCategory,
 }) => {
+  const navigate = useNavigate();
+
   const categories = [
     { value: ItemTypes.REAL_ESTATE, label: 'Недвижимость' },
     { value: ItemTypes.AUTO, label: 'Авто' },
     { value: ItemTypes.SERVICES, label: 'Услуги' },
   ];
+
+  const handleReturn = () => navigate(-1);
+
   return (
     <>
       <InputContainer>
@@ -73,9 +81,12 @@ export const ItemBase: React.FC<ItemBaseProps> = ({
         <InputCustom name="image" />
         <ErrorMessage name="image" component={ErrorText} />
       </InputContainer>
-      <Button type="submit" disabled={!values.type}>
-        Продолжить
-      </Button>
+      <ButtonWrapper>
+        <Button onClick={handleReturn}>Назад</Button>
+        <Button type="submit" disabled={!values.type}>
+          Продолжить
+        </Button>
+      </ButtonWrapper>
     </>
   );
 };

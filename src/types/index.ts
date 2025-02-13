@@ -73,6 +73,12 @@ export interface ControlsState {
   category: SwitcherType;
 }
 
+// Стейт пагинации
+export interface PaginationState {
+  currentPage: number;
+  itemsPerPage: number;
+}
+
 // Типизация экстрааргументов для AsyncThunk
 export interface ExtraArgument {
   client: AxiosInstance;
@@ -87,4 +93,5 @@ export type Store = {
   items: ItemState;
   controls: ControlsState;
   details: CurrentItemState;
+  pagination: PaginationState;
 };

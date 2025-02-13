@@ -6,4 +6,4 @@ export const BASE_URL = `${API_URL}:${PORT}/`;
 
 export const ALL_ITEMS = BASE_URL + 'items/';
 
-export const loadItemById = (itemId: number) => ALL_ITEMS + itemId;
+export const itemById = (itemId: number) => ALL_ITEMS + itemId;

@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { ControlsState, Store } from '../../types';
 
+// Начальное состояние стейта фильтров
 const initialState: ControlsState = {
   search: '',
   category: 'Все',

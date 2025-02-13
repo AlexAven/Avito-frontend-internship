@@ -6,7 +6,7 @@ interface ItemsDetailsProps {
 }
 
 const ItemsDetails: React.FC<ItemsDetailsProps> = ({ id }) => {
-  const { currentItem, error, status } = useDetails(id);
+  const { currentItem, error } = useDetails(id);
 
   return (
     <>
