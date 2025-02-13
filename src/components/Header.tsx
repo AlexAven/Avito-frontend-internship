@@ -1,5 +1,8 @@
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { useAppDispatch } from '../app/store';
+import { clearDetails } from '../features/details/detailsSlice';
 import { Container } from './Container';
 import { Button } from './Button';
 
@@ -17,6 +20,15 @@ const Wrapper = styled.div`
 `;
 
 const Header = () => {
+  const location = useLocation();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
+  const handleCreateNewItem = () => {
+    dispatch(clearDetails());
+    navigate('/form');
+  };
+
   const showButton =
     location.pathname === '/' ||
     location.pathname === '/list' ||
@@ -25,7 +37,9 @@ const Header = () => {
   return (
     <HeaderEl>
       <Container>
-        <Wrapper>{showButton && <Button>Разместить объявление</Button>}</Wrapper>
+        <Wrapper>
+          {showButton && <Button onClick={handleCreateNewItem}>Новое объявление</Button>}
+        </Wrapper>
       </Container>
     </HeaderEl>
   );

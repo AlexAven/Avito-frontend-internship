@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 import { ItemWithDetails, ItemTypes } from '../../types';
-import { Button, EditButton } from '../../components/Button';
+import { Button, AltLinkButton } from '../../components/Button';
 import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.section`
@@ -186,7 +186,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
       {item.type === ItemTypes.AUTO && renderAutoInfo()}
       {item.type === ItemTypes.SERVICES && renderServiceInfo()}
       <Button onClick={() => navigate(-1)}>Назад</Button>
-      <EditButton>Редактировать</EditButton>
+      <AltLinkButton to="/form">Редактировать</AltLinkButton>
     </Wrapper>
   );
 };

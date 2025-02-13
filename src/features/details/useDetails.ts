@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../app/store';
-import { clearDetails, loadItemById, selectDetails } from './detailsSlice';
+import { loadItemById, selectDetails } from './detailsSlice';
 
 const useDetails = (id: number) => {
   const dispatch = useAppDispatch();
@@ -9,10 +9,6 @@ const useDetails = (id: number) => {
 
   useEffect(() => {
     dispatch(loadItemById(id));
-
-    return () => {
-      dispatch(clearDetails());
-    };
   }, [id, dispatch]);
 
   return details;
