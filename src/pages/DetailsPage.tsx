@@ -5,11 +5,7 @@ import ItemsDetails from '../features/details/ItemDetails';
 const DetailsPage = () => {
   const { id } = useParams();
 
-  return (
-    <>
-      <ItemsDetails id={Number(id)} />
-    </>
-  );
+  return <ItemsDetails id={Number(id)} />;
 };
 
 export default DetailsPage;
