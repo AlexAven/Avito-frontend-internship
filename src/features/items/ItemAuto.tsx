@@ -12,27 +12,26 @@ export const ItemAuto = () => {
           <option value="ВАЗ">ВАЗ</option>
           <option value="ГАЗ">ГАЗ</option>
           <option value="УАЗ">УАЗ</option>
-          <option value="acura">Acura</option>
-          <option value="audi">Audi</option>
-          <option value="bmw">BMW</option>
-          <option value="citroen">Citroen</option>
-          <option value="dodge">Dodge</option>
-          <option value="ford">Ford</option>
-          <option value="ferrari">Ferrari</option>
-          <option value="honda">Honda</option>
-          <option value="hyundai">Hyundai</option>
-          <option value="jeep">Jeep</option>
-          <option value="jaguar">Jaguar</option>
-          <option value="kia">KIA</option>
-          <option value="land-rover">Land Rover</option>
-          <option value="lexus">Lexus</option>
-          <option value="mazda">Mazda</option>
-          <option value="mercedes-benz">Mercedes-Benz</option>
-          <option value="mitsubishi">Mitsubishi</option>
-          <option value="nissan">Nissan</option>
-          <option value="tesla">Tesla</option>
+          <option value="Acura">Acura</option>
+          <option value="Audi">Audi</option>
+          <option value="BMW">BMW</option>
+          <option value="Citroen">Citroen</option>
+          <option value="Dodge">Dodge</option>
+          <option value="Ford">Ford</option>
+          <option value="Ferrari">Ferrari</option>
+          <option value="Honda">Honda</option>
+          <option value="Hyundai">Hyundai</option>
+          <option value="Jeep">Jeep</option>
+          <option value="Jaguar">Jaguar</option>
+          <option value="KIA">KIA</option>
+          <option value="Lexus">Lexus</option>
+          <option value="Mazda">Mazda</option>
+          <option value="Mercedes">Mercedes</option>
+          <option value="Mitsubishi">Mitsubishi</option>
+          <option value="Nissan">Nissan</option>
+          <option value="Tesla">Tesla</option>
           <option value="Volkswagen">Volkswagen</option>
-          <option value="volvo">Volvo</option>
+          <option value="Volvo">Volvo</option>
         </Field>
         <ErrorMessage name="brand" component={ErrorText} />
       </InputContainer>

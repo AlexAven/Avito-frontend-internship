@@ -2,8 +2,17 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { createSelector } from 'reselect';
 
-import { ItemState, ExtraArgument, ItemWithDetails, Store } from '../../types';
-import { selectSearch, selectCategory } from '../controls/controlsSlice';
+import {
+  ItemState,
+  ExtraArgument,
+  ItemWithDetails,
+  Store,
+  ItemTypes,
+  RealEstateSpecific,
+  AutoSpecific,
+  ServiceSpecific,
+} from '../../types';
+import { selectSearch, selectCategory, selectFilters } from '../controls/controlsSlice';
 
 // Начальное состояние стейта объявлений
 const initialState: ItemState = {
@@ -70,17 +79,67 @@ export const selectItemsState = (state: Store) => state.items;
 // Селектор всех объявлений в стейте
 export const selectItemsEntities = (state: Store) => state.items.entities;
 
-// Селектор списка объявлений с учетом фильтров и текста поиска
+// Селектор списка объявлений с учетом фильтров и текста поиска ??????
+export const selectCategorizedEntities = createSelector(
+  [selectItemsEntities, selectCategory],
+  (entities, category) => {
+    return Object.values(entities).filter((item) => category === 'Все' || item.type === category);
+  },
+);
+
 export const selectFilteredItems = createSelector(
-  [selectItemsEntities, selectSearch, selectCategory],
-  (entities, search, category) => {
+  [selectItemsEntities, selectSearch, selectCategory, selectFilters],
+  (entities, search, category, filters) => {
     const searchLower = search.toLowerCase();
 
-    return Object.values(entities).filter(
-      (item) =>
-        item.name.toLowerCase().includes(searchLower) &&
-        (category === 'Все' || item.type === category),
-    );
+    return Object.values(entities).filter((item) => {
+      // Фильтрация категории
+      if (category !== 'Все' && item.type !== category) return false;
+
+      // Общая фильтрация по строке поиска
+      if (!item.name.toLowerCase().includes(searchLower)) return false;
+
+      // Фильтрация по категории
+      if (category === ItemTypes.REAL_ESTATE) {
+        const { propertyType, minArea, maxArea, rooms, minPrice, maxPrice } =
+          filters[ItemTypes.REAL_ESTATE];
+        const realEstate = item as ItemWithDetails & RealEstateSpecific;
+
+        if (propertyType && realEstate.propertyType !== propertyType) return false;
+        if (minArea > 0 && realEstate.area < minArea) return false;
+        if (maxArea > 0 && realEstate.area > maxArea) return false;
+        if (rooms > 0 && realEstate.rooms < rooms) return false;
+        if (minPrice > 0 && realEstate.price < minPrice) return false;
+        if (maxPrice > 0 && realEstate.price > maxPrice) return false;
+      }
+
+      if (category === ItemTypes.AUTO) {
+        const { brand, model, minYear, maxYear, minMileage, maxMileage } = filters[ItemTypes.AUTO];
+        const auto = item as ItemWithDetails & AutoSpecific;
+
+        if (brand && auto.brand !== brand) return false;
+        if (model && !auto.model.toLocaleLowerCase().startsWith(model.toLocaleLowerCase()))
+          return false;
+        if (minYear > 0 && auto.year < minYear) return false;
+        if (maxYear > 0 && auto.year > maxYear) return false;
+        if (minMileage > 0 && auto.mileage < minMileage) return false;
+        if (maxMileage > 0 && auto.mileage > maxMileage) return false;
+      }
+
+      if (category === ItemTypes.SERVICES) {
+        const { serviceType, minExperience, maxExperience, minCost, maxCost } =
+          filters[ItemTypes.SERVICES];
+        const service = item as ItemWithDetails & ServiceSpecific;
+
+        if (serviceType && service.serviceType !== serviceType) return false;
+        if (minExperience > 0 && service.experience < minExperience) return false;
+        if (maxExperience > 0 && service.experience > maxExperience) return false;
+        if (minCost > 0 && service.cost < minCost) return false;
+        if (maxCost > 0 && service.cost > maxCost) return false;
+      }
+
+      return true;
+    });
   },
 );
 

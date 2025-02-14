@@ -10,9 +10,9 @@ export const ItemServices = () => {
         <LabelCustom>Тип услуги</LabelCustom>
         <Field name="serviceType" as={SelectCustom}>
           <option value=""></option>
-          <option value="ремонт">Ремонт</option>
-          <option value="уборка">Уборка</option>
-          <option value="доставка">Доставка</option>
+          <option value="Ремонт">Ремонт</option>
+          <option value="Уборка">Уборка</option>
+          <option value="Доставка">Доставка</option>
         </Field>
         <ErrorMessage name="serviceType" component={ErrorText} />
       </InputContainer>

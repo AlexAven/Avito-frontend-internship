@@ -10,9 +10,9 @@ export const ItemRealEstate = () => {
         <LabelCustom>Тип недвижимости</LabelCustom>
         <Field name="propertyType" as={SelectCustom}>
           <option value=""></option>
-          <option value="квартира">Квартира</option>
-          <option value="дом">Дом</option>
-          <option value="коттедж">Коттедж</option>
+          <option value="Квартира">Квартира</option>
+          <option value="Дом">Дом</option>
+          <option value="Коттедж">Коттедж</option>
         </Field>
         <ErrorMessage name="propertyType" component={ErrorText} />
       </InputContainer>

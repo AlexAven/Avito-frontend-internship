@@ -71,6 +71,7 @@ export interface CurrentItemState {
 export interface ControlsState {
   search: string;
   category: SwitcherType;
+  filters?: any;
 }
 
 // Стейт пагинации

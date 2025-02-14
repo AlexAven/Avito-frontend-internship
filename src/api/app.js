@@ -19,6 +19,7 @@ app.use(cors());
 let items = [
   {
     id: 0,
+    image: 'https://i.pinimg.com/originals/29/98/94/2998940f55701b9952c797ef36499b3a.jpg',
     name: 'Студия на окраине',
     description: 'Просторная квартира в центре города',
     location: 'Красногорск',
@@ -30,6 +31,7 @@ let items = [
   },
   {
     id: 1,
+    image: 'https://www.amocrm.ru/uploads/2019/06/huszzitbio4.jpg',
     name: 'Квартира в центре',
     description: 'Просторная квартира в центре города',
     location: 'Москва',
@@ -41,6 +43,7 @@ let items = [
   },
   {
     id: 2,
+    image: 'https://fili-auto.ru/static/imgCar/118/5623foto-camry-2019_01.jpg',
     name: 'Toyota Camry',
     description: 'Надежный автомобиль',
     location: 'Москва',
@@ -52,6 +55,8 @@ let items = [
   },
   {
     id: 3,
+    image:
+      'https://thumbs.dreamstime.com/b/worker-isolated-construction-work-wear-white-background-isoalted-31068044.jpg',
     name: 'Ремонт квартир',
     description: 'Качественный ремонт квартир',
     location: 'Москва',
@@ -68,7 +73,7 @@ let items = [
     description: 'Будет чист ваш трубочист',
     location: 'Саратов',
     type: 'Услуги',
-    serviceType: 'Бытовые услуги',
+    serviceType: 'Уборка',
     experience: 5,
     cost: 20000,
     workSchedule: 'Пн-Пт, 8:00-22:00',
@@ -79,24 +84,26 @@ let items = [
     description: 'Почти задаром',
     location: 'Санкт-Петербург',
     type: 'Услуги',
-    serviceType: 'Бытовые услуги',
+    serviceType: 'Ремонт',
     experience: 5,
     cost: 50000,
     workSchedule: 'Пн-Пт, 10:00-15:00',
   },
   {
     id: 6,
+    image: 'https://lada-forsage.ru/i/CarBodyImage.22.jpg',
     name: 'LADA Largus',
     description: 'На дачу за картошкой',
     location: 'Сочи',
     type: 'Авто',
-    brand: 'LADA',
+    brand: 'ВАЗ',
     model: 'Largus',
     year: 2015,
     mileage: 50000,
   },
   {
     id: 7,
+    image: 'https://cdn.bmwblog.com/wp-content/uploads/2019/11/BMW-X7-M50d-Greece_11.jpg',
     name: 'BMW X7',
     description: 'Когда понт дорожен денег',
     location: 'Краснодар',
@@ -108,6 +115,7 @@ let items = [
   },
   {
     id: 8,
+    image: 'https://image.made-in-china.com/2f0j00GvitIuLrsMgy/Jacuzzi-Bathtub-MT-NR1801-.jpg',
     name: 'Квартира с джакузи',
     description: 'Почти дворец для богатеев',
     location: 'Армавир',
@@ -116,6 +124,29 @@ let items = [
     area: 250,
     rooms: 5,
     price: 250000000,
+  },
+  {
+    id: 9,
+    image: 'https://fili-auto.ru/static/imgCar/118/5623foto-camry-2019_01.jpg',
+    name: 'Toyota Camry2',
+    description: 'Надежный автомобиль',
+    location: 'Москва',
+    type: 'Авто',
+    brand: 'BMW',
+    model: 'Camry',
+    year: 2020,
+    mileage: 15000,
+  },
+  {
+    id: 10,
+    name: 'Чудо-тачка',
+    description: 'Надежный автомобиль',
+    location: 'Москва',
+    type: 'Авто',
+    brand: 'BMW',
+    model: 'Hilux',
+    year: 2020,
+    mileage: 15000,
   },
 ];
 
