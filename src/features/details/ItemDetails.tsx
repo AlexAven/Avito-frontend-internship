@@ -1,4 +1,7 @@
 import useDetails from './useDetails';
+
+import { Loading } from '../../components/Loading';
+import { Error } from '../../components/Error';
 import Info from './Info';
 
 interface ItemsDetailsProps {
@@ -6,12 +9,12 @@ interface ItemsDetailsProps {
 }
 
 const ItemsDetails: React.FC<ItemsDetailsProps> = ({ id }) => {
-  const { currentItem, error } = useDetails(id);
+  const { currentItem, error, status } = useDetails(id);
 
   return (
     <>
-      {/* {status === 'loading' && <LoadBar />} */}
-      {error && <h2>{error}</h2>}
+      {status === 'loading' && <Loading />}
+      {error && <Error>{error}</Error>}
       {currentItem && <Info item={currentItem} />}
     </>
   );

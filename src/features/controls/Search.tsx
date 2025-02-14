@@ -24,6 +24,7 @@ const Input = styled.input.attrs({
   }
 `;
 
+// Строка поиска по названию объявления
 const Search = () => {
   const [search, handleSearch] = useSearch();
 

@@ -15,6 +15,7 @@ const Wrapper = styled.div`
   position: absolute;
 `;
 
+// Набор кнопок переключателей для упарвления текущей категорией объявления
 const Category = () => {
   const dispatch = useAppDispatch();
   const category = useAppSelector(selectCategory);

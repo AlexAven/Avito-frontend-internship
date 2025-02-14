@@ -1,21 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { createItem, updateItem } from '../items/itemsSlice';
-import { useAppDispatch, useAppSelector } from '../../app/store';
-import { ItemWithDetails } from '../../types';
 
+import { ItemWithDetails } from '../../types';
+import { useAppDispatch, useAppSelector } from '../../app/store';
+import { createItem, updateItem } from '../items/itemsSlice';
+import { selectDetails } from '../details/detailsSlice';
+
+// Кастомный хук формы создания/редактирования объявления
 const useCreate = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const currentItem = useAppSelector((state) => state.details.currentItem);
+  const { currentItem } = useAppSelector(selectDetails);
   const currentTitle = currentItem ? 'Редактирование объявления' : 'Создание объявления';
 
+  // Устанавливаем шаги создания объявления
   const [step, setStep] = useState(1);
+  // Храним выбранную категорию объявления
   const [selectedCategory, setSelectedCategory] = useState('');
 
-  // Создание начальной формы для заполнения
+  // Создание начальной формы
   const initialValues = currentItem || {
     name: '',
     description: '',
@@ -36,7 +41,7 @@ const useCreate = () => {
     workSchedule: '',
   };
 
-  // Хелпер для создания объекта с заполненными значениями свойств
+  // Хелпер для создания объекта формы без пустых значений
   const getCategorizedObject = (obj: any): Record<string, any> => {
     const resultObject: Record<string, any> = {};
     for (const [key, value] of Object.entries(obj)) {

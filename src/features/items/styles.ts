@@ -117,7 +117,8 @@ export const SelectCustom = styled.select`
   cursor: pointer;
 
   &:focus {
-    border: 2px solid var(--colors-ui);
+    border: none;
+    outline: none;
   }
 
   &:hover {

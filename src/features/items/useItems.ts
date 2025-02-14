@@ -1,26 +1,28 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store';
 
+import { clearDetails, selectDetails } from '../details/detailsSlice';
+import { loadItems, selectPaginatedProducts, selectItemsState } from './itemsSlice';
 import { ItemWithDetails } from '../../types';
-import { clearDetails } from '../details/detailsSlice';
-import { loadItems, selectPaginatedProducts } from './itemsSlice';
 
-type UseItemsResult = [ItemWithDetails[]];
+// Типизируем возвращаемые значения
+type UseItemsResult = [ItemWithDetails[], string | null, string];
 
+// Хук загрузки списка объявлений
 const useItems = (): UseItemsResult => {
+  const { currentItem } = useAppSelector(selectDetails);
   const dispatch = useAppDispatch();
-
-  const items: ItemWithDetails[] = useAppSelector(selectPaginatedProducts);
+  const { error, status } = useAppSelector(selectItemsState);
+  const items = useAppSelector(selectPaginatedProducts);
 
   useEffect(() => {
-    // Загрузка объявлений
+    // Загрузка списка объявлений
     dispatch(loadItems());
-    // Очистка стейта о выбранном объявлении
-    dispatch(clearDetails());
-  }, [dispatch]);
+    // Очистка данных о выбранном объявлении
+    if (currentItem) dispatch(clearDetails());
+  }, [dispatch, currentItem]);
 
-  // return [items, status, error];
-  return [items];
+  return [items, error, status];
 };
 
 export default useItems;

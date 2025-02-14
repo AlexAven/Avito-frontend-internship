@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+
 import { useAppDispatch, useAppSelector } from '../../app/store';
 import { selectPagination } from '../items/itemsSlice';
 import { setCurrentPage } from './paginationSlice';
@@ -33,6 +34,7 @@ const PageButton = styled.button`
   }
 `;
 
+// Компонент пагинации
 const Pagination: React.FC<PaginationProps> = ({ totalItems }) => {
   const dispatch = useAppDispatch();
   const { currentPage, itemsPerPage } = useAppSelector(selectPagination);

@@ -1,18 +1,18 @@
 import { Formik } from 'formik';
 
+import useCreate from './useCreate';
+import useValidate from './useValidate';
+
+import { Wrapper, Title, FormCustom, ButtonWrapper } from './styles';
 import { ItemTypes, ItemType } from '../../types';
 import { Button } from '../../components/Button';
 import { ItemRealEstate } from './ItemRealEstate';
 import { ItemServices } from './ItemServices';
 import { ItemBase } from './ItemBase';
 import { ItemAuto } from './ItemAuto';
-import useCreate from './useCreate';
-import useValidate from './useValidate';
-import { Wrapper, Title, FormCustom, ButtonWrapper } from './styles';
 
 const FormPage: React.FC = () => {
   const { stepOneSchema, stepTwoSchema } = useValidate();
-
   const {
     currentTitle,
     selectedCategory,
@@ -26,6 +26,8 @@ const FormPage: React.FC = () => {
   return (
     <Wrapper>
       <Title>{currentTitle}</Title>
+
+      {/* Заполняем и валидируем форму объявления в зависимсоти от категории товара */}
       <Formik
         initialValues={initialValues}
         validationSchema={step === 1 ? stepOneSchema : stepTwoSchema[selectedCategory as ItemType]}
@@ -48,7 +50,9 @@ const FormPage: React.FC = () => {
                 {selectedCategory === ItemTypes.AUTO && <ItemAuto />}
                 {selectedCategory === ItemTypes.SERVICES && <ItemServices />}
                 <ButtonWrapper>
-                  <Button onClick={handleReturn}>Назад</Button>
+                  <Button type="button" onClick={handleReturn}>
+                    Назад
+                  </Button>
                   <Button type="submit">Опубликовать</Button>
                 </ButtonWrapper>
               </>

@@ -5,7 +5,7 @@ import { createSelector } from 'reselect';
 import { ItemState, ExtraArgument, ItemWithDetails, Store } from '../../types';
 import { selectSearch, selectCategory } from '../controls/controlsSlice';
 
-// Начальное состояние
+// Начальное состояние стейта объявлений
 const initialState: ItemState = {
   entities: {},
   ids: [],
@@ -49,7 +49,7 @@ const itemSlice = createSlice({
       })
       .addCase(loadItems.rejected, (state, action) => {
         state.status = 'rejected';
-        state.error = action.error.message || 'Неизвестная ошибка';
+        state.error = action.error.message || 'Ошибка загрузки данных';
       })
       .addCase(loadItems.fulfilled, (state, { payload }) => {
         const { data } = payload;
@@ -64,9 +64,13 @@ const itemSlice = createSlice({
 export const itemsReducer = itemSlice.reducer;
 
 // Селекторы:
-// Селектор объявлений для рендера с учетом фильтров и поиска
+// Селектор стейта
+export const selectItemsState = (state: Store) => state.items;
+
+// Селектор всех объявлений в стейте
 export const selectItemsEntities = (state: Store) => state.items.entities;
 
+// Селектор списка объявлений с учетом фильтров и текста поиска
 export const selectFilteredItems = createSelector(
   [selectItemsEntities, selectSearch, selectCategory],
   (entities, search, category) => {
@@ -83,7 +87,7 @@ export const selectFilteredItems = createSelector(
 // Селектор пагинации
 export const selectPagination = (state: Store) => state.pagination;
 
-// Селектор объявлений для рендера на одной текущей стринице
+// Селектор списка объявлений для рендера на одной текущей стринице
 export const selectPaginatedProducts = createSelector(
   [selectFilteredItems, selectPagination],
   (items, pagination) => {

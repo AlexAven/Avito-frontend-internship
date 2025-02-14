@@ -3,7 +3,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { CurrentItemState, ExtraArgument, Store } from '../../types';
 
-// Начальное состояние
+// Начальное состояние стейта текущего объявления
 const initialState: CurrentItemState = {
   currentItem: null,
   status: 'idle',
@@ -30,6 +30,10 @@ const detailsSlice = createSlice({
         state.status = 'loading';
         state.error = null;
       })
+      .addCase(loadItemById.rejected, (state, action) => {
+        state.status = 'rejected';
+        state.error = action.error.message || 'Ошибка загрузки данных';
+      })
       .addCase(loadItemById.fulfilled, (state, { payload }) => {
         const { data } = payload;
         state.status = 'received';
@@ -42,6 +46,9 @@ const detailsSlice = createSlice({
 export const detailsReducer = detailsSlice.reducer;
 export const { clearDetails } = detailsSlice.actions;
 
-// Селекторы страницы объявления
-export const selectCurrentCountry = (state: Store) => state.details.currentItem;
+// Селекторы
+// Селектор стейта текущего объявления целиком
 export const selectDetails = (state: Store) => state.details;
+
+// Селектор данных текущего выбранного объявления
+export const selectCurrentCountry = (state: Store) => state.details.currentItem;

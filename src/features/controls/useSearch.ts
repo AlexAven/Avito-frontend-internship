@@ -3,10 +3,12 @@ import { ChangeEvent } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../app/store';
 
+// Кастомный строки поиска
 const useSearch = (): [string, (event: ChangeEvent<HTMLInputElement>) => void] => {
   const dispatch = useAppDispatch();
   const search = useAppSelector(selectSearch);
 
+  // Обработчик строки поиска
   const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
     if (search || event.target.value.trim()) {
       dispatch(setSearch(event.target.value));

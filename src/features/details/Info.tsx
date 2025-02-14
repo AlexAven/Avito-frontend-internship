@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { ItemWithDetails, ItemTypes } from '../../types';
 import { Button, AltLinkButton } from '../../components/Button';
-import { useNavigate } from 'react-router-dom';
 
 const Wrapper = styled.section`
   margin: 1rem 3rem 0;
@@ -69,10 +69,11 @@ interface InfoProps {
   item: ItemWithDetails;
 }
 
+// Компонент страницы с информацией отдельного объявления
 const Info: React.FC<InfoProps> = ({ item }) => {
   const navigate = useNavigate();
 
-  // Общая информация для любого типа товара
+  // Основная информация для любого типа объявлений
   const renderCommonInfo = () => {
     const defaultImage = '../src/assets/images/no-photo.png';
     const { image = defaultImage } = item;
@@ -97,7 +98,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
     );
   };
 
-  // Специфическая информация для типа "Недвижимость"
+  // Информация для типа "Недвижимость"
   const renderRealEstateInfo = () => {
     if ('propertyType' in item && 'area' in item && 'rooms' in item && 'price' in item) {
       return (
@@ -127,7 +128,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
     return null;
   };
 
-  // Специфическая информация для типа "Авто"
+  // Иинформация для типа "Авто"
   const renderAutoInfo = () => {
     if ('brand' in item && 'model' in item && 'year' in item) {
       return (
@@ -156,7 +157,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
     return null;
   };
 
-  // Специфическая информация для типа "Услуги"
+  // Информация для типа "Услуги"
   const renderServiceInfo = () => {
     if ('serviceType' in item && 'experience' in item && 'cost' in item) {
       return (
