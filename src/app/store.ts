@@ -1,6 +1,6 @@
-import axios from 'axios';
-import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { configureStore } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 import * as api from '../api/api';
 
@@ -31,6 +31,7 @@ const store = configureStore({
 
 export default store;
 
+// Типы для хуков
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 
