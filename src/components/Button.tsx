@@ -61,15 +61,19 @@ interface LinkButtonProps {
   to: string;
 }
 
+// Кнопка стандартная
 export const Button = ({ children, onClick, type }: CardProps) => (
   <ButtonEl onClick={onClick} type={type}>
     {children}
   </ButtonEl>
 );
 
+// Кнопка на основе ссылки
 export const LinkButton = ({ children, to }: LinkButtonProps) => (
   <LinkButtonEl to={to || '#'}>{children}</LinkButtonEl>
 );
+
+// Альтернативная кнопка на основе ссылки
 export const AltLinkButton = ({ children, to }: LinkButtonProps) => (
   <AltButtonEl to={to || '#'}>{children}</AltButtonEl>
 );

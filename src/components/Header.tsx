@@ -1,8 +1,8 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useAppDispatch } from '../app/store';
-import { clearDetails } from '../features/details/detailsSlice';
+import { clearDetails, selectDetails } from '../features/details/detailsSlice';
+import { useAppDispatch, useAppSelector } from '../app/store';
 import { Container } from './Container';
 import { Button } from './Button';
 
@@ -23,12 +23,15 @@ const Header = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { currentItem } = useAppSelector(selectDetails);
 
+  // Обработчик клика для сброса информации о текущем объявлении и создании нового
   const handleCreateNewItem = () => {
-    dispatch(clearDetails());
+    if (currentItem) dispatch(clearDetails());
     navigate('/form');
   };
 
+  // Определяем наше положение на сайте для скрытия/показа кнопки в шапке
   const showButton =
     location.pathname === '/' ||
     location.pathname === '/list' ||

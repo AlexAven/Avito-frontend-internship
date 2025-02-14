@@ -32,6 +32,7 @@ interface Switcher {
   name: string;
 }
 
+// Кнопка-переключатель для смены категории объявлений
 const Switcher = ({ title, onChange, value, checked, name }: Switcher) => {
   return (
     <RadioLabel $ischecked={checked}>
