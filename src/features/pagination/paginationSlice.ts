@@ -15,8 +15,11 @@ const paginationSlice = createSlice({
     setCurrentPage: (state, { payload }) => {
       state.currentPage = payload;
     },
+    resetCurrentPage: (state) => {
+      state.currentPage = 1; // Сбрасываем на первую страницу
+    },
   },
 });
 
-export const { setCurrentPage } = paginationSlice.actions;
+export const { setCurrentPage, resetCurrentPage } = paginationSlice.actions;
 export const paginationReducer = paginationSlice.reducer;

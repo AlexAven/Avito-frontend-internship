@@ -4,8 +4,6 @@ import styled from 'styled-components';
 import useItems from './useItems';
 
 import { ItemWithDetails } from '../../types';
-import { useAppSelector } from '../../app/store';
-import { selectFilteredItems } from './itemsSlice';
 import { Error } from '../../components/Error';
 import { Loading } from '../../components/Loading';
 import Pagination from '../pagination/Pagination';
@@ -29,8 +27,8 @@ const NoItems = styled.h3`
 // Компонент страницы списка объявлений
 const ItemsList = () => {
   const navigate = useNavigate();
-  const itemsQty = useAppSelector(selectFilteredItems).length;
-  const [items, error, status] = useItems();
+  const [items, error, status, filteredItems] = useItems();
+  const itemsQty = filteredItems.length;
 
   return (
     <>

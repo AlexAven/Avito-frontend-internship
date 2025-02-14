@@ -10,9 +10,7 @@ const useSearch = (): [string, (event: ChangeEvent<HTMLInputElement>) => void] =
 
   // Обработчик строки поиска
   const handleSearch = (event: ChangeEvent<HTMLInputElement>): void => {
-    if (search || event.target.value.trim()) {
-      dispatch(setSearch(event.target.value));
-    }
+    dispatch(setSearch(event.target.value));
   };
 
   return [search, handleSearch];
