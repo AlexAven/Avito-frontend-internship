@@ -23,14 +23,19 @@ const FormPage: React.FC = () => {
     step,
   } = useCreate();
 
+  // Тип категории который ожидаем для валидации
+  type SpecificItemType = Exclude<ItemType, 'Все'>;
+
   return (
     <Wrapper>
       <Title>{currentTitle}</Title>
 
-      {/* Заполняем и валидируем форму объявления в зависимсоти от категории товара */}
+      {/* Заполняем и валидируем форму объявления в зависимости от категории товара */}
       <Formik
         initialValues={initialValues}
-        validationSchema={step === 1 ? stepOneSchema : stepTwoSchema[selectedCategory as ItemType]}
+        validationSchema={
+          step === 1 ? stepOneSchema : stepTwoSchema[selectedCategory as SpecificItemType]
+        }
         onSubmit={handleSubmit}
         validateOnChange={false}
         validateOnBlur={false}

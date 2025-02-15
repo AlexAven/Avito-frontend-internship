@@ -3,19 +3,44 @@ import Select from 'react-select';
 
 // Общие стили для компонентов фильтра
 export const FiltersContainer = styled.div`
-  padding: 3rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
+  padding: 2rem 0;
+  @media (min-width: 450px) {
+  }
+
+  @media (min-width: 960px) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: flex-start;
+
+    & ~ {
+      flex-shrink: 1;
+    }
+  }
+
+  @media (min-width: 1220px) {
+    padding: 3rem 0;
+    flex-direction: column;
+    gap: 2rem;
+
+    & ~ {
+      flex-shrink: 0;
+    }
+  }
 `;
 
 export const LabelCustom = styled.label`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  font-size: var(--fs-md);
-  font-weight: var(--fw-bold);
-  cursor: default;
+  text-align: center;
+
+  @media (min-width: 1220px) {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: var(--fs-md);
+    font-weight: var(--fw-bold);
+    cursor: default;
+    text-align: left;
+  }
 `;
 
 export const InputCustom = styled.input`

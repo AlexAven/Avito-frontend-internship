@@ -7,15 +7,28 @@ import { setCategory, selectCategory, clearFilters } from './controlsSlice';
 import Filters from './Filters';
 
 const CategotyContainer = styled.div`
-  position: absolute;
+  @media (min-width: 1220px) {
+    position: absolute;
+  }
 `;
 
 const Wrapper = styled.div`
-  max-width: 22rem;
+  padding-top: 1rem;
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-  align-items: stretch;
+  flex-direction: column;
+  justify-content: center;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+
+  @media (min-width: 1220px) {
+    max-width: 22rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: stretch;
+  }
 `;
 
 // Набор кнопок переключателей для упарвления текущей категорией объявления

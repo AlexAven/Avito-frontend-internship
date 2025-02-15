@@ -15,6 +15,10 @@ const Title = styled.h1`
   font-weight: var(--fw-bold);
   text-align: center;
   padding: 2.5rem 0 2rem;
+
+  @media (max-width: 400px) {
+    font-size: var(--fs-md-xlg);
+  }
 `;
 
 const NoItems = styled.h3`

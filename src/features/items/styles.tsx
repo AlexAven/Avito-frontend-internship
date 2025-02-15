@@ -56,6 +56,11 @@ export const FormCustom = styled(Form)`
 export const Title = styled.h1`
   font-size: var(--fs-lg);
   font-weight: var(--fw-bold);
+
+  @media (max-width: 520px) {
+    font-size: var(--fs-md-xlg);
+    line-height: 3rem;
+  }
 `;
 
 export const InputCustom = styled(Field).attrs({

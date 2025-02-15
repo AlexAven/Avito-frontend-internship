@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from '../app/store';
 import { Container } from './Container';
 import { Button } from './Button';
 import { clearControls } from '../features/controls/controlsSlice';
-import { loadItems } from '../features/items/itemsSlice';
 
 const HeaderEl = styled.header`
   height: 4.3rem;
@@ -25,14 +24,21 @@ const Wrapper = styled.div`
 const Logo = styled.img.attrs({
   src: './src/assets/images/logo.png',
 })`
+  height: 30px;
   display: inline-block;
-  height: 50px;
   object-fit: contain;
-  object-position: left;
-  padding-left: 4rem;
 
   &:hover {
     cursor: pointer;
+  }
+
+  @media (min-width: 600px) {
+    padding-left: 4rem;
+    object-position: left;
+  }
+
+  @media (min-width: 800px) {
+    height: 50px;
   }
 `;
 

@@ -5,8 +5,8 @@ import { ItemWithDetails, ItemTypes } from '../../types';
 import { Button, AltLinkButton } from '../../components/Button';
 
 const Wrapper = styled.section`
-  margin: 1rem 3rem 0;
-  padding: 3rem 0;
+  margin: 1rem 0;
+  padding: 3rem 2rem;
   width: 100%;
   display: grid;
   grid-template-columns: 100%;
