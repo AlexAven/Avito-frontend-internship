@@ -25,7 +25,7 @@
   /* Интерфейс */
   --colors-bg: #ffffff;
   --colors-bg-alt: #2a2a2a;
-  --colors-ui: #1baaff;
+  --colors-ui: #00aaff;
   --colors-ui-hover: #0099f7;
   --colors-ui-active: #008aed;
   --colors-ui-border: #5c5a5a12;
@@ -37,6 +37,7 @@
   --colors-edit-btn-hover: #f2f1f0;
   --colors-input: #f2f1f0;
   --colors-input-hover: #ebeae8;
+  --colors-input-checked: #cccac6;
   --color-page-btn: #f2f1f0;
   --color-page-btn-hover: #e1dfdc;
   --color-page-btn-checked: #bdbcba;
@@ -47,9 +48,7 @@
 
   /* Тени */
   --shadow: rgba(149, 157, 165, 0.183) 3px 5px 7px;
-  /* --shadow-alt: rgba(0, 1, 1, 0.561) 5px 5px 7px;
-  --shadow-filters: 4px 4px #827f7f;
-  --shadow-hover: rgba(149, 157, 165, 0.342) 3px 5px 7px; */
+  --shadow-hover: rgba(149, 157, 165, 0.342) 3px 5px 7px;
 
   /* Другое */
   --radii: 1rem;

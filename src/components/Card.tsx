@@ -9,13 +9,16 @@ const Wrapper = styled.article`
   border-radius: var(--radii);
   box-shadow: var(--shadow);
   border: 0.1rem solid var(--colors-ui-border);
-  /* cursor: pointer; */
   overflow: hidden;
 
-  /* &:hover {
-    transform: scale(1.01);
+  &:has(h3:hover) {
     box-shadow: var(--shadow-hover);
-  } */
+    transition: box-shadow 0.3s ease-in-out;
+  }
+
+  &:has(button:hover) {
+    box-shadow: var(--shadow-hover);
+  }
 `;
 
 const CardImage = styled.img`
@@ -24,7 +27,6 @@ const CardImage = styled.img`
   height: 150px;
   object-fit: contain;
   object-position: left;
-  /* box-shadow: var(--shadow); */
 `;
 
 const CardBody = styled.div`
@@ -74,6 +76,7 @@ interface CardProps {
   item: Item;
 }
 
+// Компонент карточки объявления
 const Card: React.FC<CardProps> = ({ item, onClick }) => {
   const defaultImage = './src/assets/images/no-photo.png';
   const { name, location, type, image = defaultImage } = item;
@@ -89,7 +92,7 @@ const Card: React.FC<CardProps> = ({ item, onClick }) => {
         </CardDescription>
       </CardBody>
       <BtnContainer>
-        <Button onClick={onClick}>Открыть</Button>
+        <Button onClick={onClick}>Просмотр</Button>
       </BtnContainer>
     </Wrapper>
   );

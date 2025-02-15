@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as yup from 'yup';
-import { ItemTypes, ItemType } from '../../types';
+import { ItemTypes } from '../../types';
 
 // Кастомный хук валидации формы
 const useValidate = () => {
@@ -14,7 +13,7 @@ const useValidate = () => {
   });
 
   // Схема валидации для второго шага
-  const stepTwoSchema: Record<ItemType, yup.ObjectSchema<any>> = {
+  const stepTwoSchema = {
     // Валидация для категории "Недвижимость"
     [ItemTypes.REAL_ESTATE]: yup.object().shape({
       propertyType: yup.string().required('Выберите тип недвижимости'),
@@ -30,7 +29,7 @@ const useValidate = () => {
         .number()
         .required('Укажите год выпуска авто')
         .integer()
-        .min(1800, 'Год выпуска должен быть больше 1800')
+        .min(1800, 'Год выпуска должен быть позднее 1800')
         .max(new Date().getFullYear(), 'Год выпуска не может быть больше текущего'),
       mileage: yup
         .number()

@@ -1,6 +1,6 @@
 import { ErrorMessage, Field } from 'formik';
 
-import { InputContainer, LabelCustom, InputCustom, ErrorText, SelectCustom } from './styles';
+import { InputContainer, LabelCustom, ErrorText, SelectCustom, NumberInputCustom } from './styles';
 
 // Компонент формы для категории "Недвижимость"
 export const ItemRealEstate = () => {
@@ -21,19 +21,19 @@ export const ItemRealEstate = () => {
         <LabelCustom>
           Площадь <span>м²</span>
         </LabelCustom>
-        <InputCustom name="area" type="number" />
+        <Field name="area" component={NumberInputCustom} />
         <ErrorMessage name="area" component={ErrorText} />
       </InputContainer>
 
       <InputContainer>
         <LabelCustom>Количество комнат</LabelCustom>
-        <InputCustom name="rooms" type="number" />
+        <Field name="rooms" component={NumberInputCustom} />
         <ErrorMessage name="rooms" component={ErrorText} />
       </InputContainer>
 
       <InputContainer>
         <LabelCustom>Цена</LabelCustom>
-        <InputCustom name="price" type="number" />
+        <Field name="price" component={NumberInputCustom} />
         <ErrorMessage name="price" component={ErrorText} />
       </InputContainer>
     </>

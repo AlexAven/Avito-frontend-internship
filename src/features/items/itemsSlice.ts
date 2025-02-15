@@ -79,7 +79,7 @@ export const selectItemsState = (state: Store) => state.items;
 // Селектор всех объявлений в стейте
 export const selectItemsEntities = (state: Store) => state.items.entities;
 
-// Селектор списка объявлений с учетом фильтров и текста поиска ??????
+// Селектор списка объявлений по текущей категории
 export const selectCategorizedEntities = createSelector(
   [selectItemsEntities, selectCategory],
   (entities, category) => {
@@ -87,6 +87,7 @@ export const selectCategorizedEntities = createSelector(
   },
 );
 
+// Селектор списка объявлений с учетом фильтров и поиска
 export const selectFilteredItems = createSelector(
   [selectItemsEntities, selectSearch, selectCategory, selectFilters],
   (entities, search, category, filters) => {
@@ -99,20 +100,21 @@ export const selectFilteredItems = createSelector(
       // Общая фильтрация по строке поиска
       if (!item.name.toLowerCase().includes(searchLower)) return false;
 
-      // Фильтрация по категории
+      // Фильтрация по фильтрам выбранной категории
       if (category === ItemTypes.REAL_ESTATE) {
         const { propertyType, minArea, maxArea, rooms, minPrice, maxPrice } =
           filters[ItemTypes.REAL_ESTATE];
         const realEstate = item as ItemWithDetails & RealEstateSpecific;
 
+        // Логика фильтров категории "Недвижимость"
         if (propertyType && realEstate.propertyType !== propertyType) return false;
         if (minArea > 0 && realEstate.area < minArea) return false;
         if (maxArea > 0 && realEstate.area > maxArea) return false;
-        if (rooms > 0 && realEstate.rooms < rooms) return false;
+        if (rooms > 0 && realEstate.rooms !== rooms) return false;
         if (minPrice > 0 && realEstate.price < minPrice) return false;
         if (maxPrice > 0 && realEstate.price > maxPrice) return false;
       }
-
+      // Логика фильтров категории "Авто"
       if (category === ItemTypes.AUTO) {
         const { brand, model, minYear, maxYear, minMileage, maxMileage } = filters[ItemTypes.AUTO];
         const auto = item as ItemWithDetails & AutoSpecific;
@@ -125,7 +127,7 @@ export const selectFilteredItems = createSelector(
         if (minMileage > 0 && auto.mileage < minMileage) return false;
         if (maxMileage > 0 && auto.mileage > maxMileage) return false;
       }
-
+      // Логика фильтров категории "Услуги"
       if (category === ItemTypes.SERVICES) {
         const { serviceType, minExperience, maxExperience, minCost, maxCost } =
           filters[ItemTypes.SERVICES];

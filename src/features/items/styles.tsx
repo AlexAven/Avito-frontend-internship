@@ -1,5 +1,5 @@
 import styled, { keyframes } from 'styled-components';
-import { Form, Field } from 'formik';
+import { Form, Field, FieldProps } from 'formik';
 
 const slideDown = keyframes`
   from {
@@ -51,12 +51,6 @@ export const FormCustom = styled(Form)`
   max-width: 80rem;
   display: flex;
   flex-direction: column;
-
-  /* & > :last-child {
-    margin-left: auto;
-    width: 30%;
-    height: 4rem;
-  } */
 `;
 
 export const Title = styled.h1`
@@ -146,3 +140,62 @@ export const InputContainer = styled.div`
   padding-bottom: 3rem;
   position: relative;
 `;
+
+export const NumberCustom = styled.input.attrs({
+  autoComplete: 'off',
+  maxLength: 95,
+})`
+  width: 100%;
+  padding: 1.5rem 2rem;
+  background-color: var(--colors-input);
+  font-weight: var(--fw-semi-bold);
+  border-radius: var(--radii);
+
+  &::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  &::-webkit-outer-spin-button,
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  &:hover {
+    background-color: var(--colors-input-hover);
+  }
+`;
+
+// Компонент числового инпута для Formik
+export const NumberInputCustom: React.FC<FieldProps> = ({ field, form, ...props }) => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const invalidKeys = ['e', 'E', '+', '-', '.', ',', 'ArrowUp', 'ArrowDown'];
+    if (invalidKeys.includes(e.key)) {
+      e.preventDefault();
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+
+    if (/^-|\D/.test(inputValue)) {
+      return;
+    }
+
+    if (inputValue.length > 1 && inputValue.startsWith('0')) {
+      form.setFieldValue(field.name, inputValue.slice(1));
+    } else {
+      form.setFieldValue(field.name, inputValue);
+    }
+  };
+
+  return (
+    <NumberCustom
+      {...field}
+      {...props}
+      type="number"
+      onKeyDown={handleKeyDown}
+      onChange={handleChange}
+    />
+  );
+};

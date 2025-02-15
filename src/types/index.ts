@@ -13,7 +13,46 @@ export const ItemTypes = {
 } as const;
 
 // Типы объявлений как строковые литералы
-export type ItemType = (typeof ItemTypes)[keyof typeof ItemTypes];
+export type ItemType = (typeof ItemTypes)[keyof typeof ItemTypes] | 'Все';
+
+// Тип статусов загрузки с сервера
+export type LoadingStatus = 'idle' | 'loading' | 'rejected' | 'received';
+
+// Интерфейс фильтров для категории "Недвижимость"
+export interface RealEstateFilters {
+  propertyType: string; // Тип недвижимости
+  minArea: number;
+  maxArea: number;
+  rooms: number; // Кол-во комнат (неотрицательное число)
+  minPrice: number;
+  maxPrice: number;
+}
+
+// Интерфейс фильтров для категории "Авто"
+export interface AutoFilters {
+  brand: string;
+  model: string;
+  minYear: number;
+  maxYear: number;
+  minMileage: number;
+  maxMileage: number;
+}
+
+// Интерфейс фильтров для категории "Услуги"
+export interface ServiceFilters {
+  serviceType: string;
+  minExperience: number;
+  maxExperience: number;
+  minCost: number;
+  maxCost: number;
+}
+
+// Тип для фильтрв общий
+export type FiltersState = {
+  [ItemTypes.REAL_ESTATE]: RealEstateFilters;
+  [ItemTypes.AUTO]: AutoFilters;
+  [ItemTypes.SERVICES]: ServiceFilters;
+};
 
 // Краткий тип товаров для карточки
 export interface Item {
@@ -56,14 +95,14 @@ export type ItemWithDetails = Item & (RealEstateSpecific | AutoSpecific | Servic
 export interface ItemState {
   entities: { [key: number]: ItemWithDetails };
   ids: number[];
-  status: 'idle' | 'loading' | 'rejected' | 'received';
+  status: LoadingStatus;
   error: string | null;
 }
 
 // Стейт текущего объявления
 export interface CurrentItemState {
   currentItem: ItemWithDetails | null;
-  status: 'idle' | 'loading' | 'rejected' | 'received';
+  status: LoadingStatus;
   error: string | null;
 }
 
@@ -71,7 +110,7 @@ export interface CurrentItemState {
 export interface ControlsState {
   search: string;
   category: SwitcherType;
-  filters?: any;
+  filters: FiltersState;
 }
 
 // Стейт пагинации
@@ -87,7 +126,7 @@ export interface ExtraArgument {
 }
 
 // Типизация переключателя категории
-export type SwitcherType = 'Недвижимость' | 'Авто' | 'Услуги' | 'Все';
+export type SwitcherType = ItemType;
 
 // Типизация стора
 export type Store = {

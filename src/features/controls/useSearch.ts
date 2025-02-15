@@ -3,7 +3,7 @@ import { ChangeEvent } from 'react';
 
 import { useAppDispatch, useAppSelector } from '../../app/store';
 
-// Кастомный строки поиска
+// Кастомный хук строки поиска
 const useSearch = (): [string, (event: ChangeEvent<HTMLInputElement>) => void] => {
   const dispatch = useAppDispatch();
   const search = useAppSelector(selectSearch);

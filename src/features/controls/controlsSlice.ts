@@ -1,34 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createSlice } from '@reduxjs/toolkit';
 
-import { ControlsState, Store, ItemTypes } from '../../types';
+import { ControlsState, Store, ItemTypes, FiltersState } from '../../types';
 
-// // Начальное состояние стейта фильтров
-// const initialState: ControlsState = {
-//   search: '',
-//   category: 'Все',
-// };
-
-// const controlsSlice = createSlice({
-//   name: '@@controls',
-//   initialState,
-//   reducers: {
-//     setSearch: (state, { payload }) => {
-//       state.search = payload;
-//     },
-//     setCategory: (state, { payload }) => {
-//       state.category = payload;
-//     },
-//     clearControls: () => initialState,
-//   },
-// });
-
-// export const { setSearch, setCategory, clearControls } = controlsSlice.actions;
-// export const controlsReducer = controlsSlice.reducer;
-
-// // Селекторы фильтров
-// export const selectSearch = (state: Store) => state.controls.search;
-// export const selectCategory = (state: Store) => state.controls.category;
-
+// Cтейт управления объявлениями (поиск, категории, фильтры)
 const initialState: ControlsState = {
   search: '',
   category: 'Все',
@@ -69,10 +44,10 @@ const controlsSlice = createSlice({
     setCategory: (state, { payload }) => {
       state.category = payload;
     },
-    setFilters: (state, { payload }) => {
+    setFilters: (state, { payload }: { payload: { category: any; filters: any } }) => {
       const { category, filters } = payload;
-      state.filters[category] = {
-        ...state.filters[category],
+      state.filters[category as keyof FiltersState] = {
+        ...state.filters[category as keyof FiltersState],
         ...filters,
       };
     },
@@ -85,9 +60,12 @@ const controlsSlice = createSlice({
 export const { setSearch, setCategory, setFilters, clearFilters } = controlsSlice.actions;
 export const controlsReducer = controlsSlice.reducer;
 
-// Селекторы для получения фильтров
+// Селекторы
+// Селектор получения фильтров по всем категориям
 export const selectFilters = (state: Store) => state.controls.filters;
 
-// // Селекторы фильтров
+// Селектор получения текущего значания поисковой строки
 export const selectSearch = (state: Store) => state.controls.search;
+
+// Селектор получения всех категорий объявлений
 export const selectCategory = (state: Store) => state.controls.category;

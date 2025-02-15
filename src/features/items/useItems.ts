@@ -25,9 +25,13 @@ const useItems = (): UseItemsResult => {
   const items = useAppSelector(selectPaginatedProducts);
   const filteredItems = useAppSelector(selectFilteredItems);
 
-  // Получение объявлений с сервера и очистка текущих данных
+  // Получение объявлений с сервера
   useEffect(() => {
     dispatch(loadItems());
+  }, [dispatch]);
+
+  // Очистка данных о текущем объявлении
+  useEffect(() => {
     if (currentItem) dispatch(clearDetails());
   }, [dispatch, currentItem]);
 

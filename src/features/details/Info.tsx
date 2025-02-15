@@ -101,6 +101,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
 
   // Информация для типа "Недвижимость"
   const renderRealEstateInfo = () => {
+    // проверка наличия всех обязательных полей в карточке объявления "Недвижимость"
     if ('propertyType' in item && 'area' in item && 'rooms' in item && 'price' in item) {
       return (
         <InfoGroup>
@@ -131,6 +132,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
 
   // Иинформация для типа "Авто"
   const renderAutoInfo = () => {
+    // проверка наличия всех обязательных полей в карточке объявления "Авто"
     if ('brand' in item && 'model' in item && 'year' in item) {
       return (
         <InfoGroup>
@@ -160,6 +162,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
 
   // Информация для типа "Услуги"
   const renderServiceInfo = () => {
+    // проверка наличия всех обязательных полей в карточке объявления "Услуги"
     if ('serviceType' in item && 'experience' in item && 'cost' in item) {
       return (
         <InfoGroup>
@@ -190,6 +193,7 @@ const Info: React.FC<InfoProps> = ({ item }) => {
     return null;
   };
 
+  // Рендер общих полей + уникальных (в зависмости от выбранной категории)
   return (
     <Wrapper>
       {renderCommonInfo()}

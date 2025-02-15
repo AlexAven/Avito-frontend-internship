@@ -1,6 +1,13 @@
 import { ErrorMessage, Field } from 'formik';
 
-import { InputContainer, LabelCustom, InputCustom, ErrorText, SelectCustom } from './styles';
+import {
+  InputContainer,
+  LabelCustom,
+  InputCustom,
+  ErrorText,
+  SelectCustom,
+  NumberInputCustom,
+} from './styles';
 
 // Компонент формы для категории "Услуги"
 export const ItemServices = () => {
@@ -21,13 +28,13 @@ export const ItemServices = () => {
         <LabelCustom>
           Опыт работы <span>лет</span>
         </LabelCustom>
-        <InputCustom name="experience" type="number" />
+        <Field name="experience" component={NumberInputCustom} />
         <ErrorMessage name="experience" component={ErrorText} />
       </InputContainer>
 
       <InputContainer>
         <LabelCustom>Стоимость</LabelCustom>
-        <InputCustom name="cost" type="number" />
+        <Field name="cost" component={NumberInputCustom} />
         <ErrorMessage name="cost" component={ErrorText} />
       </InputContainer>
 

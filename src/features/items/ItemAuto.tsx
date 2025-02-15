@@ -1,5 +1,12 @@
 import { ErrorMessage, Field } from 'formik';
-import { InputContainer, LabelCustom, InputCustom, ErrorText, SelectCustom } from './styles';
+import {
+  InputContainer,
+  LabelCustom,
+  InputCustom,
+  ErrorText,
+  SelectCustom,
+  NumberInputCustom,
+} from './styles';
 
 // Компонент формы для категории "Авто"
 export const ItemAuto = () => {
@@ -44,7 +51,7 @@ export const ItemAuto = () => {
 
       <InputContainer>
         <LabelCustom>Год выпуска</LabelCustom>
-        <InputCustom name="year" type="number" />
+        <Field name="year" component={NumberInputCustom} />
         <ErrorMessage name="year" component={ErrorText} />
       </InputContainer>
 
@@ -52,7 +59,7 @@ export const ItemAuto = () => {
         <LabelCustom>
           Пробег <span>км</span>
         </LabelCustom>
-        <InputCustom name="mileage" type="number" />
+        <Field name="mileage" component={NumberInputCustom} />
         <ErrorMessage name="mileage" component={ErrorText} />
       </InputContainer>
     </>
