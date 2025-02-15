@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import useFilters from './useFilters';
+
+import { FiltersContainer, LabelCustom, SelectCustom, InputCustom } from './styles';
 import NumberInput from '../../components/NumberInput';
 import { ItemTypes } from '../../types';
-import { FiltersContainer, LabelCustom, SelectCustom, InputCustom } from './styles';
-import useFilters from './useFilters';
+
 
 // Компонент фильтров категории "Авто"
 const FilterAuto = () => {
@@ -36,7 +38,7 @@ const FilterAuto = () => {
         </LabelCustom>
 
         <LabelCustom>
-          Не старее (год):
+          Не старше (год):
           <NumberInput
             value={filters[ItemTypes.AUTO].minYear || ''}
             onChange={(e) => handleFilterChange('minYear', +e.target.value)}

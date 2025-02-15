@@ -23,6 +23,7 @@ const Wrapper = styled.div`
 
 const Logo = styled.img.attrs({
   src: './src/assets/images/logo.png',
+  alt: 'Логотип',
 })`
   height: 30px;
   display: inline-block;
