@@ -54,10 +54,12 @@ const controlsSlice = createSlice({
     clearFilters: (state) => {
       state.filters = initialState.filters;
     },
+    clearControls: () => initialState,
   },
 });
 
-export const { setSearch, setCategory, setFilters, clearFilters } = controlsSlice.actions;
+export const { setSearch, setCategory, setFilters, clearFilters, clearControls } =
+  controlsSlice.actions;
 export const controlsReducer = controlsSlice.reducer;
 
 // Селекторы

@@ -5,11 +5,14 @@ import { clearDetails, selectDetails } from '../features/details/detailsSlice';
 import { useAppDispatch, useAppSelector } from '../app/store';
 import { Container } from './Container';
 import { Button } from './Button';
+import { clearControls } from '../features/controls/controlsSlice';
+import { loadItems } from '../features/items/itemsSlice';
 
 const HeaderEl = styled.header`
   height: 4.3rem;
   background-color: var(--colors-bg-alt);
   color: var(--colors-text-alt);
+  margin-bottom: 3rem;
 `;
 
 const Wrapper = styled.div`
@@ -17,6 +20,20 @@ const Wrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   padding: 0.5rem 0;
+`;
+
+const Logo = styled.img.attrs({
+  src: './src/assets/images/logo.png',
+})`
+  display: inline-block;
+  height: 50px;
+  object-fit: contain;
+  object-position: left;
+  padding-left: 4rem;
+
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const Header = () => {
@@ -31,6 +48,12 @@ const Header = () => {
     navigate('/form');
   };
 
+  // Обработчик клика по лого и сброса всех фильтров
+  const handleLogoClick = () => {
+    dispatch(clearControls());
+    navigate('/list');
+  };
+
   // Определяем наше положение на сайте для скрытия/показа кнопки в шапке
   const showButton =
     location.pathname === '/' ||
@@ -38,13 +61,18 @@ const Header = () => {
     location.pathname.startsWith('/item/');
 
   return (
-    <HeaderEl>
+    <>
+      <HeaderEl>
+        <Container>
+          <Wrapper>
+            {showButton && <Button onClick={handleCreateNewItem}>Новое объявление</Button>}
+          </Wrapper>
+        </Container>
+      </HeaderEl>
       <Container>
-        <Wrapper>
-          {showButton && <Button onClick={handleCreateNewItem}>Новое объявление</Button>}
-        </Wrapper>
+        <Logo onClick={handleLogoClick} />
       </Container>
-    </HeaderEl>
+    </>
   );
 };
 
