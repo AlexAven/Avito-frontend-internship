@@ -34,7 +34,7 @@ export const loadItems = createAsyncThunk<any, void, { extra: ExtraArgument }>(
 export const createItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
   '@@items/create-item',
   (item, { extra: { client, api } }) => {
-    client.post(api.ALL_ITEMS, item);
+    return client.post(api.ALL_ITEMS, item);
   },
 );
 
@@ -42,7 +42,7 @@ export const createItem = createAsyncThunk<void, ItemWithDetails, { extra: Extra
 export const updateItem = createAsyncThunk<void, ItemWithDetails, { extra: ExtraArgument }>(
   '@@items/update-item',
   (item, { extra: { client, api } }) => {
-    client.put(api.itemById(item.id!), item);
+    return client.put(api.itemById(item.id!), item);
   },
 );
 
