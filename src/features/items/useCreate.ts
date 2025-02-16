@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ItemWithDetails } from '../../types';
 import { useAppDispatch, useAppSelector } from '../../app/store';
-import { createItem, updateItem } from '../items/itemsSlice';
+import { createItem, loadItems, updateItem } from '../items/itemsSlice';
 import { selectDetails } from '../details/detailsSlice';
 
 // Кастомный хук формы создания/редактирования объявления

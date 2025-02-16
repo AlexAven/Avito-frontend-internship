@@ -28,7 +28,7 @@ const useItems = (): UseItemsResult => {
   // Получение объявлений с сервера
   useEffect(() => {
     dispatch(loadItems());
-  }, [dispatch]);
+  }, []);
 
   // Очистка данных о текущем объявлении
   useEffect(() => {
