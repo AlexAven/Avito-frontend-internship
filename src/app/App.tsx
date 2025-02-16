@@ -5,12 +5,12 @@ import ListPage from '../pages/ListPage';
 import FormPage from '../pages/FormPage';
 import DetailsPage from '../pages/DetailsPage';
 import NotFoundPage from '../pages/NotFoundPage';
-import ErrorToast from '../components/ErrorToast';
+import MessageToast from '../components/MessageToast';
 
 function App() {
   return (
     <>
-      <ErrorToast />
+      <MessageToast />
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="list" />} />

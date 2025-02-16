@@ -21,7 +21,9 @@ const initialState: ItemState = {
   status: 'idle',
   error: null,
   ui: {
-    errorUi: null,
+    status: 'idle',
+    message: null,
+    error: null,
   },
 };
 
@@ -53,8 +55,8 @@ const itemSlice = createSlice({
   name: 'items',
   initialState,
   reducers: {
-    clearError: (state) => {
-      state.ui.errorUi = initialState.ui.errorUi;
+    clearUi: (state) => {
+      state.ui = initialState.ui;
     },
   },
   extraReducers: (builder) => {
@@ -74,16 +76,32 @@ const itemSlice = createSlice({
         state.ids = data.map((item: ItemWithDetails) => item.id);
         data.forEach((item: ItemWithDetails) => (state.entities[item.id!] = item));
       })
-      .addCase(updateItem.rejected, (state, action) => {
-        state.ui.errorUi = action.error.message || 'Ошибка при выполнении запроса';
+      .addCase(createItem.pending, (state) => {
+        state.ui.status = 'loading';
       })
-      .addCase(createItem.rejected, (state, action) => {
-        state.ui.errorUi = action.error.message || 'Ошибка при выполнении запроса';
+      .addCase(createItem.rejected, (state) => {
+        state.ui.status = 'rejected';
+        state.ui.error = 'Ошибка при создании';
+      })
+      .addCase(createItem.fulfilled, (state) => {
+        state.ui.status = 'received';
+        state.ui.message = 'Успешно создано!';
+      })
+      .addCase(updateItem.pending, (state) => {
+        state.ui.status = 'loading';
+      })
+      .addCase(updateItem.rejected, (state) => {
+        state.ui.status = 'rejected';
+        state.ui.error = 'Ошибка при редактировании';
+      })
+      .addCase(updateItem.fulfilled, (state) => {
+        state.ui.status = 'received';
+        state.ui.message = 'Успешно отредактировано!';
       });
   },
 });
 
-export const { clearError } = itemSlice.actions;
+export const { clearUi } = itemSlice.actions;
 export const itemsReducer = itemSlice.reducer;
 
 // Селекторы:

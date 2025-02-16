@@ -98,7 +98,9 @@ export interface ItemState {
   status: LoadingStatus;
   error: string | null;
   ui: {
-    errorUi: string | null;
+    status: LoadingStatus;
+    message: null | string;
+    error: null | string;
   };
 }
 
