@@ -97,6 +97,9 @@ export interface ItemState {
   ids: number[];
   status: LoadingStatus;
   error: string | null;
+  ui: {
+    errorUi: string | null;
+  };
 }
 
 // Стейт текущего объявления

@@ -28,8 +28,7 @@ const useValidate = () => {
       year: yup
         .number()
         .required('Укажите год выпуска авто')
-        .integer()
-        .min(1800, 'Год выпуска должен быть позднее 1800')
+        .min(1800, 'Год выпуска должен быть не ранее 1800')
         .max(new Date().getFullYear(), 'Год выпуска не может быть больше текущего'),
       mileage: yup
         .number()

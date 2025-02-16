@@ -20,6 +20,9 @@ const initialState: ItemState = {
   ids: [],
   status: 'idle',
   error: null,
+  ui: {
+    errorUi: null,
+  },
 };
 
 // Получения списка объявлений с сервера
@@ -49,7 +52,11 @@ export const updateItem = createAsyncThunk<void, ItemWithDetails, { extra: Extra
 const itemSlice = createSlice({
   name: 'items',
   initialState,
-  reducers: {},
+  reducers: {
+    clearError: (state) => {
+      state.ui.errorUi = initialState.ui.errorUi;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(loadItems.pending, (state) => {
@@ -66,10 +73,17 @@ const itemSlice = createSlice({
         state.error = null;
         state.ids = data.map((item: ItemWithDetails) => item.id);
         data.forEach((item: ItemWithDetails) => (state.entities[item.id!] = item));
+      })
+      .addCase(updateItem.rejected, (state, action) => {
+        state.ui.errorUi = action.error.message || 'Ошибка при выполнении запроса';
+      })
+      .addCase(createItem.rejected, (state, action) => {
+        state.ui.errorUi = action.error.message || 'Ошибка при выполнении запроса';
       });
   },
 });
 
+export const { clearError } = itemSlice.actions;
 export const itemsReducer = itemSlice.reducer;
 
 // Селекторы:
